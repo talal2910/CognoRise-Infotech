@@ -1,0 +1,74 @@
+import random
+
+# Function to get the computer's choice
+def get_computer_choice():
+    return random.choice(["rock", "paper", "scissors"])
+
+# Function to determine the winner
+def determine_winner(user_choice, computer_choice):
+    winning_combinations = {
+        "rock": "scissors",
+        "scissors": "paper",
+        "paper": "rock"
+    }
+    
+    if user_choice == computer_choice:
+        return "tie"
+    elif winning_combinations[user_choice] == computer_choice:
+        return "win"
+    else:
+        return "lose"
+
+# Function to display the result of the round
+def display_result(user_choice, computer_choice, result):
+    print(f"\nYou chose: {user_choice.capitalize()}")
+    print(f"Computer chose: {computer_choice.capitalize()}")
+    
+    if result == "win":
+        print("🎉 You win this round!")
+    elif result == "lose":
+        print("😞 You lose this round!")
+    else:
+        print("😐 It's a tie!")
+
+# Main game loop
+def rock_paper_scissors():
+    user_score = 0
+    computer_score = 0
+
+    print("Welcome to the Rock, Paper, Scissors Game!")
+    
+    while True:
+        # Get and validate user input
+        while True:
+            user_choice = input("\nChoose your option (rock, paper, scissors): ").strip().lower()
+            if user_choice in ["rock", "paper", "scissors"]:
+                break
+            else:
+                print("Invalid choice. Please select rock, paper, or scissors.")
+        
+        # Get the computer's choice and determine the result
+        computer_choice = get_computer_choice()
+        result = determine_winner(user_choice, computer_choice)
+        
+        # Update scores
+        if result == "win":
+            user_score += 1
+        elif result == "lose":
+            computer_score += 1
+
+        # Display round results and current score
+        display_result(user_choice, computer_choice, result)
+        print(f"\nCurrent Score -> You: {user_score} | Computer: {computer_score}")
+
+        # Ask if the user wants to play another round
+        play_again = input("\nDo you want to play another round? (y/n): ").strip().lower()
+        if play_again != 'y':
+            break
+
+    print(f"\nFinal Score -> You: {user_score} | Computer: {computer_score}")
+    print("Thanks for playing! Goodbye!")
+
+# Entry point of the script
+if __name__ == "__main__":
+    rock_paper_scissors()
